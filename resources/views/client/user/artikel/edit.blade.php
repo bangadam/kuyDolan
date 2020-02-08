@@ -1,0 +1,34 @@
+@extends('client.user.layouts.app')
+
+@section('content')
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Edit artikel</h4>
+              @if($errors->any())
+                  @foreach($errors->all() as $error)
+                      <div class="alert alert-danger">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          <strong>{{$error}}</strong>
+                      </div>
+                  @endforeach
+              @endif
+              <form action="{{route('artikel.update', $artikel->id)}}" method="POST">
+                  {{csrf_field()}}
+                  @method('PUT')
+                  <div class="form-group">
+                      <label for="">Judul</label>
+                      <input type="text" class="form-control" name="judul" value="{{$artikel->title}}">
+                  </div>
+                  <div class="form-group">
+                      <label for="">Isi artikel</label>
+                      <textarea name="isi" id="editor" class="form-control">{!! $artikel->description !!}</textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Simpan</button>
+              </form>
+          </div>
+        </div>
+    </div>
+</div>
+@endsection
